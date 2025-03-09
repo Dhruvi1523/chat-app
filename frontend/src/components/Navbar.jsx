@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useAuthStore } from "../store/authStore";
+import { HiUsers } from "react-icons/hi";
+
 
 const Navbar = () => {
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const { logout, authUser } = useAuthStore();
-
+  const { logout, authUser , toggleShowAllUsers } = useAuthStore();
+ 
   const toggleSettings = () => {
     setIsSettingsOpen(!isSettingsOpen);
   };
@@ -21,10 +23,7 @@ const Navbar = () => {
 
         {/* Settings Dropdown */}
         <div className="relative">
-          <button
-            onClick={toggleSettings}
-            className=""
-          >
+          <button onClick={toggleSettings} className="">
             <div className="w-10 h-10 rounded-full bg-gray-700 flex items-center justify-center cursor-pointer">
               <img
                 src={
@@ -35,6 +34,15 @@ const Navbar = () => {
                 alt="Profile"
                 className="w-8 h-8 rounded-full"
               />
+            </div>
+          </button>
+
+          <button
+            onClick={toggleShowAllUsers}
+          >
+            <div className="w-10 h-10 rounded-full bg-gray-700 mt-2 flex items-center justify-center cursor-pointer">
+            <HiUsers className="w-6 h-6" />
+
             </div>
           </button>
 

@@ -11,6 +11,14 @@ export const useAuthStore = create((set, get) => ({
     isUpdating: false,
     socket: null,
     onlineUsers: [],
+    showAllUsers : true ,
+
+    toggleShowAllUsers : ()=>{
+        if (window.innerWidth < 768) {
+            set((state) => ({ showAllUsers: !state.showAllUsers }));
+          }
+       
+    },
 
     checkAuth: async () => {
         try {

@@ -5,39 +5,35 @@ import { useEffect } from "react";
 import { useAuthStore } from "../store/authStore";
 
 const UserSideBar = () => {
-  const { selectedUser, users, getUsers, setSelectedUser  } =
-    useMessageStore();
-  const {onlineUsers} = useAuthStore();
+  const { selectedUser, users, getUsers, setSelectedUser  } = useMessageStore();
+     
+      const { onlineUsers ,toggleShowAllUsers  } = useAuthStore();
   useEffect(() => {
     getUsers();
-  }, [getUsers ]);
+  }, [getUsers]);
 
-  const toggleUser = (user)=>{
-    if(user === selectedUser){
-      setSelectedUser("")
+  const toggleUser = (user) => {
+    if (user === selectedUser) {
+      setSelectedUser("");
+    } else {
+      setSelectedUser(user);
     }
-    else{
-      setSelectedUser(user)
-    }
-  }
+    toggleShowAllUsers()
 
-
+  };
 
   return (
     <div className="bg-[#202329] h-full overflow-y-auto p-2">
       {users?.length > 0 ? (
         users.map((user) => (
-         
-            
-            <UserItem
-              key={user._id}
-              name={user.fullName}
-              profilePic={user.profilePic}
-              onClick={()=>toggleUser(user)}
-              isOnline = {onlineUsers.includes(user._id)}
-              isSelected={ selectedUser === user}
-            />
-         
+          <UserItem
+            key={user._id}
+            name={user.fullName}
+            profilePic={user.profilePic}
+            onClick={() => toggleUser(user)}
+            isOnline={onlineUsers.includes(user._id)}
+            isSelected={selectedUser === user}
+          />
         ))
       ) : (
         <p className="text-center text-gray-400 p-4">No users available</p>

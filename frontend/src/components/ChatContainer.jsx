@@ -3,6 +3,7 @@ import { useMessageStore } from "../store/messageStore";
 import MessageInput from "./MessageInput.jsx";
 import { useAuthStore } from "../store/authStore";
 import { formatMessageTime } from "../libs/utils.js";
+import { HiChevronLeft } from "react-icons/hi"; 
 
 function ChatContainer() {
   const {
@@ -12,8 +13,9 @@ function ChatContainer() {
     messages,
     unsubscribeToMessage,
     subscribeToMessage,
+    setSelectedUser
   } = useMessageStore();
-  const { authUser, onlineUsers } = useAuthStore();
+  const { authUser, onlineUsers , toggleShowAllUsers } = useAuthStore();
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
@@ -35,10 +37,21 @@ function ChatContainer() {
     }
   }
 
+  function goBack(){
+    setSelectedUser("")
+    toggleShowAllUsers()
+  }
+
   return (
-    <div className="flex flex-col h-screen w-full">
+    <div className="flex flex-col h-screen w-full ">
       {/* Selected User Header */}
       <div className="w-full p-4 flex items-center space-x-4 bg-[#1e252f] shadow-md fixed">
+        <button
+          onClick={goBack}
+          className=" text-white font-semibold py-2 px-1 rounded transition duration-300 flex items-center sm:flex md:hidden"
+        >
+         <HiChevronLeft className="w-8 h-8 mr-2" />
+        </button>
         <img
           src={selectedUser.profilePic}
           alt={selectedUser.fullName}
@@ -124,9 +137,6 @@ function ChatContainer() {
           <div ref={messagesEndRef} />
         </div>
       </div>
-
-      
-      
     </div>
   );
 }
