@@ -8,7 +8,7 @@ import { io, extractSocketId } from '../lib/socket.js';
 
 export const getUsersForSidebar = async (req, res) => {
     try {
-        const userId = req.user.userId;
+        const userId = req.user._id;
 
         // find users other than users to display in sidebar
         const filterUsers = await User.find({ _id: { $ne: userId } }).select("-password")
@@ -23,7 +23,7 @@ export const getUsersForSidebar = async (req, res) => {
 
 export const getMessages = async (req, res) => {
     try {
-        const userId = req.user.userId; // Authenticated user's ID
+        const userId = req.user._id; // Authenticated user's ID
         const { receiverId } = req.params;
 
         if (!receiverId) {
@@ -52,7 +52,7 @@ export const getMessages = async (req, res) => {
 
 export const sendMessage = async (req, res) => {
     try {
-        const userId = req.user.userId
+        const userId = req.user._id
         const { text, image } = req.body;
         const { receiverId } = req.params;
 
@@ -91,3 +91,4 @@ export const sendMessage = async (req, res) => {
         return res.status(500).json({ message: "Internal Server Error" })
     }
 }
+

@@ -42,12 +42,11 @@ export const useMessageStore = create((set , get)=>(
 
     setSelectedUser : (user)=>{
         set({selectedUser : user})
-
-      
     } ,
 
     sendMessage: async (id, data) => {
         try {
+            // encryption
             const res = await axiosInstance.post(`/message/send/${id}`, data);
             console.log("Message Sent:", res.data);
     
@@ -77,6 +76,7 @@ export const useMessageStore = create((set , get)=>(
         socket.on("new-message", (newMessage) => {
             if(newMessage.senderId !== selectedUser._id)
                 return;
+            // decryption
             set({ messages: [...get().messages, newMessage] }); // Ensure correct state update
         });
     },

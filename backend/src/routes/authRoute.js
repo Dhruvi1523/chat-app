@@ -10,9 +10,7 @@ router.post('/login' , login)
 router.post('/logout' , logout)
 router.put('/update-profile' , protectRoute , updateProfile)
 router.get('/check' , protectRoute ,async ( req , res)=>{
-    const user = await User.findOne({ _id : req.user.userId } ).select("-password")
-
-    res.status(200).json(user)
+    res.status(200).json(req.user)
 })
 
 

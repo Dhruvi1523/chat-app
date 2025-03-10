@@ -22,12 +22,6 @@ export const signup = async (req, res) => {
         const salt = await bcrypt.genSalt(10)
         const hashPassword = await bcrypt.hash(password, salt)
 
-
-        
-
-       
-
-
         const newUser = await new User({
             email,
             fullName,
@@ -106,7 +100,7 @@ export const updateProfile = async (req, res) => {
     try {
         const { profilePic } = req.body  ;
 
-        const userId = req.user.userId ;
+        const userId = req.user._id ;
 
         if(!profilePic){
             return res.status(400).json({ message: "Profile picture is required" })
