@@ -16,7 +16,8 @@ export const useAuthStore = create((set, get) => ({
     toggleShowAllUsers : ()=>{
         if (window.innerWidth < 768) {
             set((state) => ({ showAllUsers: !state.showAllUsers }));
-          }
+        }
+       
        
     },
 

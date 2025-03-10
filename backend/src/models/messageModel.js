@@ -16,12 +16,19 @@ const messageSchema = new mongoose.Schema({
     },
     image: {
         type: String
+    },
+    deleteFor: {
+        type: [mongoose.Schema.Types.ObjectId], // Defines an array of ObjectIds
+        ref: "User",
+        default: []  // Ensures it initializes as an empty array
     }
+    
+
 },
     {
         timestamps: true
     }
 
 )
-const Message = new mongoose.model("Message" , messageSchema)
-export default  Message
+const Message = new mongoose.model("Message", messageSchema)
+export default Message

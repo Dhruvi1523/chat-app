@@ -31,7 +31,7 @@ const UserSideBar = () => {
             name={user.fullName}
             profilePic={user.profilePic}
             onClick={() => toggleUser(user)}
-            isOnline={onlineUsers.includes(user._id)}
+            isOnline={onlineUsers && onlineUsers.includes(user._id)}
             isSelected={selectedUser === user}
           />
         ))

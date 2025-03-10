@@ -39,8 +39,10 @@ export const getMessages = async (req, res) => {
             $or: [
                 { senderId: new mongoose.Types.ObjectId(userId), receiverId: new mongoose.Types.ObjectId(receiverId) },
                 { senderId: new mongoose.Types.ObjectId(receiverId), receiverId: new mongoose.Types.ObjectId(userId) }
-            ]
-        }).sort({ createdAt: 1 }); // Sort messages in ascending order (oldest first)
+            ],
+            deleteFor: { $nin: [userId] } // Ensures userId is NOT in the deleteFor array
+        }).sort({ createdAt: 1 });
+        // Sort messages in ascending order (oldest first)
 
         return res.status(200).json(messages);
 
@@ -72,12 +74,12 @@ export const sendMessage = async (req, res) => {
 
         await newMessage.save();
 
-       
+
 
         const receiverSocketId = extractSocketId(receiverId);
-        
+
         if (receiverSocketId) {  // Ensure receiverSocketId exists before emitting
-            
+
             io.to(receiverSocketId).emit("new-message", newMessage);
             console.log("message emit")
         }
@@ -92,3 +94,57 @@ export const sendMessage = async (req, res) => {
     }
 }
 
+export const deleteChat = async (req, res) => {
+    try {
+        const  senderId  = req.user._id
+        const { receiverId } = req.params
+
+        const deletedMessages = await Message.updateMany(
+            {
+                $or: [
+                    { senderId: senderId, receiverId: receiverId },
+                    { senderId: receiverId, receiverId: senderId }
+                ]
+            },
+            { $addToSet: { deleteFor: senderId } }
+        );
+        console.log(deletedMessages)
+        return res.status(200).json({ message: "delete message successfully" })
+    } catch (e) {
+        console.error("Error in deleteChat controller:", e);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+
+
+}
+
+export const deleteMessageForMe = async (req, res) => {
+    try {
+        const { userId } = req.user._id
+        const { messageId } = req.params
+
+        const deleteMessage = await Message.findById(messageId,
+            { $addToSet: { deletedFor: userId } }
+        )
+        return res.status(200).json(
+            { message: "Delete message for me" }
+        )
+    } catch (e) {
+        console.error("Error in deleteMessageForMe controller:", e);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+}
+
+export const deleteMessageForEverone = async (req, res) => {
+    try {
+        const { messageId } = req.params
+
+        const deleteMessageForEveryone = await Message.deleteOne(messageId)
+        return res.status(200).json(
+            { message: "Delete message for everyone" }
+        )
+    } catch (e) {
+        console.error("Error in deleteMessageForEverone controller:", e);
+        return res.status(500).json({ message: "Internal Server Error" });
+    }
+}

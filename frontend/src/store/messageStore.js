@@ -90,6 +90,17 @@ export const useMessageStore = create((set , get)=>(
         }
     
         socket.off("new-message");
+    },
+
+    deleteChat : async (id)=>{
+        try {
+            const res = await axiosInstance.delete(`/message/delete-chat/${id}`);
+            console.log("dlete");
+    
+        } catch (e) {
+            console.error("Error in sending messages:", e);
+            toast.error(e.response?.data?.message || "Something went wrong");
+        }
     }
     
     

@@ -18,34 +18,28 @@ const ChatUI = () => {
         <Navbar />
       </div>
 
-      {showAllUsers && (
-        <aside
-          className={`border-r border-gray-700 ${
-            showAllUsers ? "w-full sm:w-60 md:w-72 lg:w-80" : "hidden"
-          } sm:block `}
-        >
-          <UseSidebar />
-        </aside>
-      )}
+      {/* Sidebar for Users */}
+      <aside
+        className={`border-r border-gray-700 ${
+          showAllUsers ? "w-full sm:w-60 md:w-72 lg:w-80" : "hidden"
+        } sm:block`}
+      >
+        <UseSidebar />
+      </aside>
 
       {/* Main Content */}
-      <div className="flex flex-1 overflow-hidden">
-        {/* Sidebar - Collapsible on small screens */}
-
-        {/* Chat Container with Message Input */}
-        <div className="flex-1 flex flex-col w-full sm:w-auto relative">
-          <div className="">
-            {selectedUser ? <ChatContainer /> : <DefaultChat />}
-          </div>
-          {/* Message Input at Bottom with extra padding for mobile */}
-          {selectedUser ? (
-            <>
-              <div className="absolute bottom-0 w-full bg-[#202329]  sm:static  pb-16 sm:pb-0">
-                <MessageInput />
-              </div>
-            </>
-          ) : null}
+      <div className="flex flex-1 flex-col overflow-hidden">
+        {/* Chat Area */}
+        <div className="flex-1 overflow-auto">
+          {selectedUser ? <ChatContainer /> : <DefaultChat />}
         </div>
+
+        {/* Message Input Bar */}
+        {selectedUser && (
+          <div className="w-full bg-[#202329] p-3 border-t border-gray-700">
+            <MessageInput />
+          </div>
+        )}
       </div>
 
       {/* Bottom Navbar for Mobile */}
