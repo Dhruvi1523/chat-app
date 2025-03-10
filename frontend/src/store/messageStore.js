@@ -95,7 +95,7 @@ export const useMessageStore = create((set , get)=>(
     deleteChat : async (id)=>{
         try {
             const res = await axiosInstance.delete(`/message/delete-chat/${id}`);
-            console.log("dlete");
+            await get().getMessages(id)
     
         } catch (e) {
             console.error("Error in sending messages:", e);
