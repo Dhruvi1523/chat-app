@@ -20,13 +20,14 @@ const ChatUI = () => {
 
       {/* Sidebar for Users */}
       <aside
-        className={`border-r border-gray-700 ${
-          showAllUsers ? "w-full sm:w-60 md:w-72 lg:w-80" : "hidden"
-        } sm:block`}
+        className={`border-r border-gray-700 h-full flex flex-col ${
+          showAllUsers ? "w-full sm:w-60 md:w-80 lg:w-80" : "hidden"
+        } sm:block pb-20 bg-[#2B2B2B]`}
       >
-        <UseSidebar />
+        <div className="overflow-y-auto flex-1">
+          <UseSidebar />
+        </div>
       </aside>
-
       {/* Main Content */}
       <div className="flex flex-1 flex-col overflow-hidden">
         {/* Chat Area */}
@@ -36,16 +37,18 @@ const ChatUI = () => {
 
         {/* Message Input Bar */}
         {selectedUser && (
-          <div className="w-full bg-[#202329] p-3 border-t border-gray-700">
+          <div className="w-full bg-[#2B2B2B] p-3 border-t border-gray-700">
             <MessageInput />
           </div>
         )}
       </div>
 
       {/* Bottom Navbar for Mobile */}
-      <div className="flex sm:hidden fixed bottom-0 w-full bg-[#131313] z-10">
-        <Navbar />
-      </div>
+      {!selectedUser && (
+        <div className="flex sm:hidden fixed bottom-0 w-full bg-[#131313] z-10">
+          <Navbar />
+        </div>
+      )}
     </div>
   );
 };

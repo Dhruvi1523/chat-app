@@ -1,119 +1,110 @@
 import React, { useState } from "react";
 import { useAuthStore } from "../store/authStore";
-import {Loader} from "lucide-react"
+import { Loader } from "lucide-react";
 import toast from "react-hot-toast";
 
 const SignUpPage = () => {
+  const { isSignUp, signUp } = useAuthStore();
 
-  const {isSignUp , signUp } = useAuthStore()
- 
-  const [data , setData] = useState({
-    fullName : "" ,
-    email : "" ,
-    password : ""
-  })
+  const [data, setData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+  });
 
   function validateForm() {
-    console.log("sign up")
-
     if (!data.fullName?.trim() || !data.email?.trim() || !data.password?.trim()) {
-      console.log("hi")
-        toast.error("All fields are required");
-        return false;
+      toast.error("All fields are required");
+      return false;
     }
 
     if (!/^\S+@\S+\.\S+$/.test(data.email)) {
-        toast.error("Invalid email");
-        return false;
+      toast.error("Invalid email");
+      return false;
     }
 
     if (data.password.length < 6) {
-        toast.error("Password must be at least 6 characters long");
-        return false;
+      toast.error("Password must be at least 6 characters long");
+      return false;
     }
 
     return true;
-}
+  }
 
-
-  async function handleSignUp(e){
-    e.preventDefault() ;
-    if(validateForm() === true) {
+  async function handleSignUp(e) {
+    e.preventDefault();
+    if (validateForm() === true) {
       await signUp(data);
-      
-
     }
   }
 
   return (
-    <div className="min-h-screen bg-gray-900 flex items-center justify-center">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-96">
-        <h2 className="text-2xl font-bold text-white mb-6 text-center">Sign Up</h2>
-        <form
-           onSubmit={ handleSignUp}
-        >
+    <div className="min-h-screen bg-[#2B2B2B] flex items-center justify-center px-4 sm:px-6 lg:px-8">
+      <div className="bg-[#3E3E3E] p-6 sm:p-8 rounded-lg shadow-lg w-full max-w-md border border-[#4E4E4E]">
+        <h2 className="text-2xl sm:text-3xl font-bold text-[#E0E0E0] mb-6 text-center">
+          Sign Up
+        </h2>
+        <form onSubmit={handleSignUp}>
           <div className="mb-4">
-            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="fullname">
+            <label
+              className="block text-[#B0B0B0] text-sm sm:text-base font-bold mb-2"
+              htmlFor="fullname"
+            >
               Full Name
             </label>
             <input
               type="text"
               id="fullname"
-              className="w-full px-3 py-2 bg-gray-700 text-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 bg-[#3E3E3E] text-[#E0E0E0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF9F43] border border-[#4E4E4E] text-sm sm:text-base"
               placeholder="Enter your full name"
-              onChange={(e)=>{
-                setData({
-                  ...data , 
-                  fullName : e.target.value
-                })
-              }}
+              onChange={(e) => setData({ ...data, fullName: e.target.value })}
             />
           </div>
           <div className="mb-4">
-            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="email">
+            <label
+              className="block text-[#B0B0B0] text-sm sm:text-base font-bold mb-2"
+              htmlFor="email"
+            >
               Email
             </label>
             <input
               type="email"
               id="email"
-              className="w-full px-3 py-2 bg-gray-700 text-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 bg-[#3E3E3E] text-[#E0E0E0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF9F43] border border-[#4E4E4E] text-sm sm:text-base"
               placeholder="Enter your email"
-              onChange={(e)=>{
-                setData({
-                  ...data , 
-                  email : e.target.value
-                })
-              }}
+              onChange={(e) => setData({ ...data, email: e.target.value })}
             />
           </div>
           <div className="mb-6">
-            <label className="block text-gray-300 text-sm font-bold mb-2" htmlFor="password">
+            <label
+              className="block text-[#B0B0B0] text-sm sm:text-base font-bold mb-2"
+              htmlFor="password"
+            >
               Password
             </label>
             <input
               type="password"
               id="password"
-              className="w-full px-3 py-2 bg-gray-700 text-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full px-3 py-2 bg-[#3E3E3E] text-[#E0E0E0] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#FF9F43] border border-[#4E4E4E] text-sm sm:text-base"
               placeholder="Enter your password"
-              onChange={(e)=>{
-                setData({
-                  ...data , 
-                  password : e.target.value
-                })
-              }}
+              onChange={(e) => setData({ ...data, password: e.target.value })}
             />
           </div>
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-200"
-            disabled = {isSignUp} 
+            className="w-full bg-[#FF9F43] text-[#2B2B2B] py-2 sm:py-3 rounded-lg hover:bg-[#FF8F33] transition duration-200 font-bold text-sm sm:text-base"
+            disabled={isSignUp}
           >
-          Sign Up
+            {isSignUp ? (
+              <Loader className="animate-spin mx-auto" />
+            ) : (
+              "Sign Up"
+            )}
           </button>
         </form>
-        <p className="text-gray-400 text-sm mt-4 text-center">
+        <p className="text-[#B0B0B0] text-sm sm:text-base mt-4 text-center">
           Already have an account?{" "}
-          <a href="/login" className="text-blue-500 hover:underline">
+          <a href="/login" className="text-[#FF9F43] hover:underline">
             Login
           </a>
         </p>

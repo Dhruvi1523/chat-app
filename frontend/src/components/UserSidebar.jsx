@@ -5,9 +5,9 @@ import { useEffect } from "react";
 import { useAuthStore } from "../store/authStore";
 
 const UserSideBar = () => {
-  const { selectedUser, users, getUsers, setSelectedUser  } = useMessageStore();
-     
-      const { onlineUsers ,toggleShowAllUsers  } = useAuthStore();
+  const { selectedUser, users, getUsers, setSelectedUser } = useMessageStore();
+  const { onlineUsers, toggleShowAllUsers } = useAuthStore();
+
   useEffect(() => {
     getUsers();
   }, [getUsers]);
@@ -18,12 +18,11 @@ const UserSideBar = () => {
     } else {
       setSelectedUser(user);
     }
-    toggleShowAllUsers()
-
+    toggleShowAllUsers();
   };
 
   return (
-    <div className="bg-[#202329] h-full overflow-y-auto p-2">
+    <div className="bg-[#2B2B2B] h-full overflow-y-auto p-2 border-r border-[#4E4E4E]">
       {users?.length > 0 ? (
         users.map((user) => (
           <UserItem
@@ -36,7 +35,7 @@ const UserSideBar = () => {
           />
         ))
       ) : (
-        <p className="text-center text-gray-400 p-4">No users available</p>
+        <p className="text-center text-[#B0B0B0] p-4">No users available</p>
       )}
     </div>
   );

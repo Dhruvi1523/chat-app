@@ -27,7 +27,7 @@ const ProfilePage = () => {
   
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6">
+    <div className="min-h-screen bg-[#2B2B2B] text-[#E0E0E0] p-6">
       <div className="max-w-4xl mx-auto">
 
         {/* Profile Picture Section */}
@@ -36,14 +36,13 @@ const ProfilePage = () => {
             <img
               src= { selectedPic ||  authUser.profilePic || "https://avatarfiles.alphacoders.com/930/93048.png"}
               alt="Profile"
-              className="w-32 h-32 rounded-full object-cover border-4 border-gray-700"
+              className="w-32 h-32 rounded-full object-cover border-4 border-[#4E4E4E]"
             />
             <label
               htmlFor="profile-pic-upload"
-              className="absolute bottom-0 right-0 bg-blue-600 p-2 rounded-full cursor-pointer hover:bg-blue-700 transition duration-200"
+              className="absolute bottom-0 right-0 bg-[#FF9F43] p-2 rounded-full cursor-pointer hover:bg-[#FF8F33] transition duration-200"
             >
-              <Camera className="w-5 h-5 text-base-200"/>
-
+              <Camera className="w-5 h-5 text-[#2B2B2B]"/>
               <input
                 type="file"
                 id="profile-pic-upload"
@@ -54,32 +53,32 @@ const ProfilePage = () => {
             </label>
           </div>
           <div>
-            <h2 className="text-2xl font-bold">{authUser.fullName}</h2>
+            <h2 className="text-2xl font-bold text-[#E0E0E0]">{authUser.fullName}</h2>
           </div>
         </div>
 
         {/* Full Name Section */}
-        <div className="bg-gray-800 p-6 rounded-lg mb-6">
+        <div className="bg-[#3E3E3E] p-6 rounded-lg mb-6 border border-[#4E4E4E]">
           <h3 className="text-xl font-bold mb-4">Full Name</h3>
-          <p className="text-gray-300">{authUser.fullName}</p>
+          <p className="text-[#B0B0B0]">{authUser.fullName}</p>
         </div>
 
         {/* Email Section */}
-        <div className="bg-gray-800 p-6 rounded-lg mb-6">
+        <div className="bg-[#3E3E3E] p-6 rounded-lg mb-6 border border-[#4E4E4E]">
           <h3 className="text-xl font-bold mb-4">Email</h3>
-          <p className="text-gray-300">{authUser.email}</p>
+          <p className="text-[#B0B0B0]">{authUser.email}</p>
         </div>
 
         {/* Account Information Section */}
-        <div className="bg-gray-800 p-6 rounded-lg">
+        <div className="bg-[#3E3E3E] p-6 rounded-lg border border-[#4E4E4E]">
           <h3 className="text-xl font-bold mb-4">Account Information</h3>
           <div className="space-y-2">
-            <p className="text-gray-300">
+            <p className="text-[#B0B0B0]">
               <span className="font-semibold">Member Since:</span> {authUser.createdAt?.split("T")[0]}
             </p>
-            <p className="text-gray-300 ">
-              <span className="font-semibold ">Account Type:</span> 
-              <span className="text-green-500 ">  Active </span>
+            <p className="text-[#B0B0B0]">
+              <span className="font-semibold">Account Type:</span> 
+              <span className="text-green-500">  Active </span>
             </p>
           </div>
         </div>
