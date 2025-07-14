@@ -4,32 +4,25 @@ import bcrypt from "bcryptjs";
 
 const seeds = [
   {
-    fullName: "Aarav Mehta",
-    email: "aarav.mehta@example.com",
-    password: "SecurePass123",
-    profilePic: "https://randomuser.me/api/portraits/men/1.jpg",
+    fullName: "Rohan Patel",
+    email: "rohan.patel@example.com",
+    password: "Rohan#4567",
   },
   {
-    fullName: "Saanvi Sharma",
-    email: "saanvi.sharma@example.com",
-    password: "Password@2024",
-    profilePic: "https://randomuser.me/api/portraits/women/2.jpg",
+    fullName: "Kavya Nair",
+    email: "kavya.nair@example.com",
+    password: "Kavya$2025",
   },
- 
   {
-    fullName: "Ananya Iyer",
-    email: "ananya.iyer@example.com",
-    password: "Ananya_789",
-    profilePic: "https://randomuser.me/api/portraits/women/4.jpg",
+    fullName: "Vikram Singh",
+    email: "vikram.singh@example.com",
+    password: "Vikram_1234",
   },
- 
   {
-    fullName: "Meera Kapoor",
-    email: "meera.kapoor@example.com",
-    password: "Meera@pass890",
-    profilePic: "https://randomuser.me/api/portraits/women/8.jpg",
+    fullName: "Priya Desai",
+    email: "priya.desai@example.com",
+    password: "Priya@9876",
   },
-  
 ];
 
 const seedBackend = async () => {
@@ -45,7 +38,7 @@ const seedBackend = async () => {
     );
 
     await User.insertMany(hashedSeeds);
-    console.log("Database seeded successfully");
+   
 
     process.exit(0); // Exit the script successfully
   } catch (error) {
