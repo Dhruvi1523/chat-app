@@ -100,7 +100,7 @@ export const useAuthStore = create((set, get) => ({
         if (!authUser) return; // Ensure user is authenticated
         if (socket) return; // Prevent multiple socket instances
 
-        const newSocket = io("http://localhost:5252", {
+        const newSocket = io("https://chat-app-10gs.onrender.com", {
             query: {
                 userId: authUser._id
             }
