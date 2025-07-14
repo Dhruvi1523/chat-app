@@ -19,7 +19,7 @@ app.use(cookieParser())
 app.use(express.urlencoded({ limit: "50mb"  , extended: true }));
 app.use(cors(
    {
-    origin : "http://localhost:5173" ,
+    origin : "http://localhost:5173" || "https://chat-app-1-9s03.onrender.com",
     credentials : true ,
     methods: "GET,POST,PUT,DELETE",
     allowedHeaders: "Content-Type,Authorization"
