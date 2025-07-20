@@ -11,7 +11,7 @@ const socketMap = {};
 
 const io = new Server(server, {
     cors: {
-      origin: "http://localhost:5173", // Allow frontend to connect
+      origin: "http://localhost:5173" || "https://chat-app-1-9s03.onrender.com", // Allow frontend to connect
       methods: ["GET", "POST", "PUT", "DELETE"] // Allow these request methods
     }
   });

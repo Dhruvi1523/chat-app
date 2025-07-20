@@ -19,7 +19,6 @@ import {Toaster } from "react-hot-toast"
 
 function App() {
   const { authUser, checkAuth, isCheckingAuth , onlineUsers} = useAuthStore();
-  const { getUsers , users , getMessages} = useMessageStore();
   const router = createBrowserRouter([
     {
       path: "/",
